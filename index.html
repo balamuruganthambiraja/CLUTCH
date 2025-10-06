@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CLUTCH, a LLM for hand motion synthesis in-the-wild">
+  <meta name="keywords" content="CLUTCH">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLUTCH: Contextualized Language model for Unlocking Text-Conditioned Hand motion modelling in the wild</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://balamuruganthambiraja.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <a class="navbar-item" href="#overview">Abstract</a>
+      <a class="navbar-item" href="#video">Video</a>
+      <a class="navbar-item" href="#clutch-overview">Overview</a>
+      <!-- <a class="navbar-item" href="#data-annotation">Data Annotation</a>
+      <a class="navbar-item" href="#method">Method</a> -->
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://balamuruganthambiraja.github.io/Imitator">
+            Imitator
+          </a> 
+          <a class="navbar-item" href="https://balamuruganthambiraja.github.io/3DiFACE">
+            3DiFACE
+          </a> 
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-1 publication-title clutch-title">
+            <span class="clutch-word"><span class="clutch-letter">C</span>LUTCH:</span>
+            <span class="clutch-word"><span class="clutch-letter">C</span>ONTEXTUALIZED</span>
+            <span class="clutch-word"><span class="clutch-letter">L</span>ANGUAGE MODEL</span>
+            <!-- <span class="clutch-word">MODEL</span> -->
+            <br>
+            <span class="clutch-word">FOR</span>
+            <span class="clutch-word"><span class="clutch-letter">U</span>NLOCKING</span>
+            <span class="clutch-word"><span class="clutch-letter">T</span>EXT-</span>
+            <span class="clutch-word"><span class="clutch-letter">C</span>ONDITIONED</span>
+            <span class="clutch-word"><span class="clutch-letter">H</span>AND</span>
+            <br>
+            <span class="clutch-word">MOTION</span>
+            <span class="clutch-word">MODELLING</span>
+            <span class="clutch-word">IN</span>
+            <span class="clutch-word">THE</span>
+            <span class="clutch-word">WILD</span>
+          </h2>
+          <!-- <h4 class="subtitle is-4">3DV2025</h4> -->
+          <!-- <span class="author-block"><h6 class="title is-3">3DV 2025</h1></span> -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">Balamurugan Thambiraja</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://otaheri.github.io/">Omid Taheri</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://radekd91.github.io/">Radek Danecek</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://is.mpg.de/person/gbecherini">Giorgio Becherini</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://virtualhumans.mpi-inf.mpg.de/people/pons-moll.html">Gerard Pons-Moll</a><sup>3,4,5</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://justusthies.github.io/">Justus Thies</a><sup>1,2</sup>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Technical University of Darmstadt, Germany</span>
+            <p> </p>
+            <span class="author-block"><sup>2</sup>Max-Planck Institute for Intelligent Systems, Tübingen, Germany</span>
+            <p> </p>
+            <span class="author-block"><sup>3</sup>University of Tübingen, Germany</span>
+            <p> </p>
+            <span class="author-block"><sup>4</sup>Tübingen AI Center, Germany</span>
+            <p> </p>
+            <span class="author-block"><sup>5</sup>Max Planck Institute for Informatics, Saarland Informatics Campus, Germany</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./media/pdf/CLUTCH_arxiv.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-light is-static"
+                   aria-disabled="true" onclick="return false;">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (coming soon)</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/bala1144/CLUTCH"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+              <!-- Additional resource links can be added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Abstract</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            <b>Hands play a central role in daily life</b>, yet modeling natural hand motions remains underexplored. Existing methods that tackle text-to-hand-motion generation or hand animation captioning rely on studio-captured datasets with limited actions and contexts, making them costly to scale to in-the-wild settings. Further, contemporary models and their training schemes struggle to capture animation fidelity with text–motion alignment.
+          </p>
+          <p>
+            To address this, we (1) introduce <b>'3D Hands in the Wild' (3D-HIW)</b>, a dataset of 32K 3D hand-motion sequences and aligned text, and (2) propose <b>CLUTCH</b>, an LLM-based hand animation system with two critical innovations: (a) <b>SHIFT</b>, a novel <b>VQ-VAE</b> architecture to tokenize hand motion, and (b) a <b>geometric refinement</b> stage to finetune the LLM. To build 3D-HIW, we propose a data annotation pipeline that combines vision-language models (VLMs) and state-of-the-art 3D hand trackers, and apply it to a large corpus of egocentric action videos covering a wide range of scenarios. To fully capture motion in-the-wild, CLUTCH employs SHIFT, a part-modality decomposed VQ-VAE, which improves generalization and reconstruction fidelity. Finally, to improve animation quality, we introduce a geometric refinement stage, where CLUTCH is co-supervised with a reconstruction loss applied directly to decoded hand motion parameters.
+          </p>
+          <p>
+            Experiments demonstrate <b>state-of-the-art performance</b> on <b>text-to-motion</b> and <b>motion-to-text</b> tasks, establishing the first benchmark for scalable in-the-wild hand motion modelling. Code, data and models will be released.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="video">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe width="791" height="445"
+                  src="https://www.youtube.com/embed/frgXFFseTMQ"
+                  title="CLUTCH: Contextualized Language Model for Unlocking Text-Conditioned Hand Motion Modelling in the Wild"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="clutch-overview">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">CLUTCH Overview</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <figure class="image">
+          <img src="./media/img/clutch_overview.png" alt="CLUTCH overview diagram">
+        </figure>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="content has-text-justified">
+          <p>
+            CLUTCH is an LLM for synthesizing and captioning in-the-wild 3D hand motions. 
+            To train this model, 
+            we (i) generate an in-the-wild hand motion dataset (Section 3). 
+            We (ii) tokenize the hand motion using a novel decomposed VQ-VAE tokenizer (Section 4.1).
+             We (iii) train the LLM to model both text and motion in a unified token space 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 
+<section class="section section-alt" id="data-annotation">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">Data Annotation Pipeline</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <figure class="image">
+          <img src="./media/img/data_annotation.png" alt="3D-HIW data annotation pipeline">
+        </figure>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="content has-text-justified">
+          <p>
+            Building the 3D-HIW dataset begins with mining egocentric action videos containing diverse hand-object interactions. We pair an off-the-shelf 3D hand tracker with vision-language models to automatically align textual descriptions with precise motion segments. Sequence-level quality filters and human spot checks ensure that the resulting annotations capture both kinematic fidelity and semantic intent.
+          </p>
+          <p>
+            The pipeline produces more than <b>32K</b> high-quality hand-motion clips, each linked to rich natural language prompts. This scalable approach bypasses the need for controlled capture studios and provides the breadth of scenarios required to train CLUTCH on in-the-wild motion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="method">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered">
+        <h2 class="title is-3">CLUTCH Method Pipeline</h2>
+      </div>
+    </div>
+    <div class="columns is-vcentered">
+      <div class="column is-half">
+        <figure class="image">
+          <img src="./media/img/vqvae_figures.png" alt="CLUTCH method pipeline">
+        </figure>
+      </div>
+      <div class="column is-half">
+        <div class="content has-text-justified">
+          <p>
+            CLUTCH first encodes motion sequences using SHIFT, a part-modality decomposed VQ-VAE. The encoder isolates local finger articulations, contextual palm motion, and global trajectory, mapping them into discrete tokens that preserve fine-grained dexterity while remaining compact.
+          </p>
+          <p>
+            A transformer-based language model consumes these tokens alongside text prompts to generate or refine sequences. A geometric refinement stage enforces physical plausibility through reconstruction losses applied to decoded hand parameters, yielding motions that remain faithful to the input description while exhibiting realistic temporal dynamics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @article{thambiraja2024clutch,
+      title={{CLUTCH}: Contextualized Language model for Unlocking Text-Conditioned Hand Motion Modelling in the Wild},
+      author={Balamurugan Thambiraja and Omid Taheri and Radek Danecek and Giorgio Becherini and Gerard Pons-Moll and Justus Thies},
+      journal={arXiv preprint arXiv:xxxx.xxxxx},
+      year={2024},
+      url={https://arxiv.org/abs/}
+      }
+  </code></pre>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="container">
+      <div class="content has-text-centered">
+          <a class="icon-link" href="">
+              <i class="fas fa-file-pdf"></i>
+          </a>
+          <a class="icon-link" href="" class="external-link" disabled>
+              <i class="fab fa-github"></i>
+          </a>
+      </div>
+      <div class="columns is-centered">
+          <div class="column is-8">
+              <div class="content">
+                  <p style="text-align:center">
+                      Source code mainly borrowed from <a href="https://keunhong.com/">Keunhong Park</a>'s <a
+                          href="https://nerfies.github.io/">Nerfies website</a>.
+                  </p>
+                  <p style="text-align:center">
+                      Please contact <a href="https://ncs.is.mpg.de/person/bthambiraja">Balamurugan Thambiraja</a> for feedback and questions.
+                  </p>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+
+</body>
+</html>
