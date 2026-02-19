@@ -155,22 +155,22 @@
               <span class="link-block">
                 <a href="https://github.com/bala1144/CLUTCH"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code (coming soon)</span>
-                </a>
+              <span class="icon">
+                  <i class="fab fa-github"></i>
               </span>
-              <!-- Additional resource links can be added here -->
-              <span class="link-block">
-                <a href="#BibTeX"
-                   class="external-link button is-normal is-rounded is-link">
-                  <span class="icon">
-                      <i class="fas fa-quote-right"></i>
-                  </span>
-                  <span>BibTeX</span>
-                </a>
-              </span>
+              <span>Code (coming soon)</span>
+              </a>
+            </span>
+            <!-- Additional resource links can be added here -->
+            <span class="link-block">
+              <button class="button is-normal is-rounded is-info copy-bibtex-button"
+                      data-copy-target="clutch-bibtex">
+                <span class="icon">
+                    <i class="fas fa-copy"></i>
+                </span>
+                <span>Copy BibTeX</span>
+              </button>
+            </span>
           </div>
         </div>
       </div>
@@ -311,16 +311,24 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>
-    @inproceedings{
-    thambiraja2026clutch,
-    title={{CLUTCH}: Contextualized Language model for Unlocking Text-Conditioned Hand motion modelling in the wild},
-    author={Balamurugan Thambiraja and Omid Taheri and Radek Danecek and Giorgio Becherini and Gerard Pons-Moll and Justus Thies},
-    booktitle={The Fourteenth International Conference on Learning Representations},
-    year={2026},
-    url={https://openreview.net/forum?id=W7YRskO47j}
-    }
-  </code></pre>
+
+    <div class="box bibtex-entry">
+      <div class="is-flex is-justify-content-space-between is-align-items-center mb-2">
+        <h3 class="title is-5 mb-0">CLUTCH</h3>
+        <button class="button is-small is-link copy-bibtex-button" data-copy-target="clutch-bibtex">
+          Copy BibTeX
+        </button>
+      </div>
+      <pre><code id="clutch-bibtex">@inproceedings{
+thambiraja2026clutch,
+title={{CLUTCH}: Contextualized Language model for Unlocking Text-Conditioned Hand motion modelling in the wild},
+author={Balamurugan Thambiraja and Omid Taheri and Radek Danecek and Giorgio Becherini and Gerard Pons-Moll and Justus Thies},
+booktitle={The Fourteenth International Conference on Learning Representations},
+year={2026},
+url={https://openreview.net/forum?id=W7YRskO47j}
+}</code></pre>
+    </div>
+
   </div>
 </section>
 

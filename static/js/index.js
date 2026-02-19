@@ -19,6 +19,72 @@ function setInterpolationImage(i) {
   $('#interpolation-image-wrapper').empty().append(image);
 }
 
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  }
+
+  return new Promise(function(resolve, reject) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-1000px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      resolve();
+    } catch (err) {
+      reject(err);
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  });
+}
+
+function initBibtexCopyButtons() {
+  var buttons = document.querySelectorAll('.copy-bibtex-button');
+  if (!buttons.length) {
+    return;
+  }
+
+  buttons.forEach(function(button) {
+    if (!button.dataset.defaultLabel) {
+      button.dataset.defaultLabel = button.textContent.trim() || 'Copy BibTeX';
+    }
+
+    button.addEventListener('click', function() {
+      var targetId = button.getAttribute('data-copy-target');
+      var codeBlock = document.getElementById(targetId);
+      if (!codeBlock) {
+        return;
+      }
+      var text = codeBlock.textContent.trim();
+
+      copyTextToClipboard(text).then(function() {
+        button.classList.remove('is-link', 'is-danger');
+        button.classList.add('is-success');
+        button.textContent = 'Copied!';
+        setTimeout(function() {
+          button.classList.remove('is-success', 'is-danger');
+          button.classList.add('is-link');
+          button.textContent = button.dataset.defaultLabel;
+        }, 2000);
+      }).catch(function() {
+        button.classList.remove('is-link', 'is-success');
+        button.classList.add('is-danger');
+        button.textContent = 'Copy failed';
+        setTimeout(function() {
+          button.classList.remove('is-success', 'is-danger');
+          button.classList.add('is-link');
+          button.textContent = button.dataset.defaultLabel;
+        }, 2000);
+      });
+    });
+  });
+}
+
 
 $(document).ready(function() {
     // Check for click events on the navbar burger icon
@@ -74,5 +140,6 @@ $(document).ready(function() {
     $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
 
     bulmaSlider.attach();
+    initBibtexCopyButtons();
 
 })
